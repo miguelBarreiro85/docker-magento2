@@ -1,24 +1,47 @@
 version: '3.0'
 services:
-  web:
-    image: alexcheng/magento2
+  nginx-proxy:
+    image: jwilder/nginx-proxy
     ports:
       - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      - docker-magento2_default
+  web:
+    build: ./mlpDockerFile
+    image: webapp:tag
     links:
       - db
     env_file:
       - env
-  db:
-    image: mysql:5.6.23
     volumes:
-      - db-data:/var/lib/mysql/data
+      - magento_code:/var/www/html
+    environment:
+      - VIRTUAL_HOST=local.magento
+    networks:
+      - docker-magento2_default
+  db:
+    restart: always
+    build: ./mlpDB
+    image: mysql:mlp
+    volumes:
+      - dbData:/var/lib/mysql/data
     env_file:
       - env
+    networks:
+      - docker-magento2_default
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    ports:
-      - "8580:80"
     links:
-      - db     
+      - db
+    environment:
+      - VIRTUAL_HOST=phpmyadmin.mlp
+    networks:
+      - docker-magento2_default
 volumes:
-  db-data: 
+  dbData:
+  magento_code:
+networks:
+  docker-magento2_default:
+    driver: bridge

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+su www-data <<EOSU
+
+/var/www/html/bin/magento module:disable Mlp_Cli
+/var/www/html/bin/magento module:disable Magenticians_Mymodule
+/var/www/html/bin/magento module:disable Ibnab_MegaMenu
+
+
+EOSU

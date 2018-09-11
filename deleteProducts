@@ -1,0 +1,1 @@
+docker exec -it docker-magento2-nginx-proxy_db_1 deleteProducts.sh
