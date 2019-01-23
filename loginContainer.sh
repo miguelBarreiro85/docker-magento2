@@ -1,1 +1,1 @@
-sudo docker exec -it docker-magento2-nginx-proxy_web_1 /bin/bash
+docker exec -it docker-magento2_web_1 /bin/bash
