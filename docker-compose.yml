@@ -17,6 +17,7 @@ services:
       - env
     volumes:
       - magento_code:/var/www/html
+      - ./mlpDockerFile/auferma:/auferma
     environment:
       - VIRTUAL_HOST=local.magento
     networks:

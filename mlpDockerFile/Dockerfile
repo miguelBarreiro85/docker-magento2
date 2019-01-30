@@ -69,9 +69,9 @@ RUN chmod 0644 /etc/cron.d/sorefoz_cron
 COPY ./sorefoz_conv.sh /usr/local/bin/sorefoz_conv.sh
 RUN chmod +x /usr/local/bin/sorefoz_conv.sh
 
-COPY auferma/ /auferma
-
 RUN touch /var/log/sorefoz_cron.log
+
+RUN composer global require phpoffice/phpspreadsheet
 
 WORKDIR $INSTALL_DIR
 
